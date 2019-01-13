@@ -122,6 +122,25 @@ fn test_detail_false_fail() {
 }
 
 #[test]
+fn test_skipdata() {
+    let mut cs = Capstone::new()
+        .x86()
+        .mode(x86::ArchMode::Mode64)
+        .build()
+        .unwrap();
+    cs.set_detail(false).unwrap();
+    cs.set_skipdata(true).unwrap();
+
+    let x86_code_skip: &[u8] = b"\x2f\x6c";
+
+    let insns = cs.disasm_all(x86_code_skip, 0x1000).unwrap();
+    let insns: Vec<_> = insns.iter().collect();
+    assert_eq!(insns.len(), 2);
+    assert_eq!(insns[0].mnemonic().unwrap(), ".byte");
+    assert_eq!(insns[1].mnemonic().unwrap(), "insb");
+}
+
+#[test]
 fn test_detail_true() {
     let mut cs1 = Capstone::new()
         .x86()
