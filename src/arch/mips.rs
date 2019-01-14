@@ -74,6 +74,7 @@ impl<'a> From<&'a cs_mips_op> for MipsOperand {
                 MipsOperand::Mem(MipsOpMem(unsafe { insn.__bindgen_anon_1.mem }))
             }
             mips_op_type::MIPS_OP_INVALID => MipsOperand::Invalid,
+            _ => MipsOperand::Invalid,
         }
     }
 }

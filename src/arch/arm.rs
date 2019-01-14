@@ -96,7 +96,7 @@ impl ArmShift {
 }
 
 impl ArmOperandType {
-    fn new(op_type: arm_op_type, value: cs_arm_op__bindgen_ty_2) -> ArmOperandType {
+    fn new(op_type: arm_op_type::Type, value: cs_arm_op__bindgen_ty_2) -> ArmOperandType {
         use self::arm_op_type::*;
         use self::ArmOperandType::*;
 
@@ -110,6 +110,7 @@ impl ArmOperandType {
             ARM_OP_PIMM => Pimm(unsafe { value.imm }),
             ARM_OP_SETEND => Setend(unsafe { value.setend }),
             ARM_OP_SYSREG => SysReg(RegId(unsafe { value.reg } as RegIdInt)),
+            _ => Invalid,
         }
     }
 }
@@ -311,7 +312,7 @@ mod test {
         use super::ArmOperandType::*;
 
         fn t(
-            op_type_value: (arm_op_type, cs_arm_op__bindgen_ty_2),
+            op_type_value: (arm_op_type::Type, cs_arm_op__bindgen_ty_2),
             expected_op_type: ArmOperandType,
         ) {
             let (op_type, op_value) = op_type_value;

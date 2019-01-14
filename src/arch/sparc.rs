@@ -93,6 +93,7 @@ impl<'a> From<&'a cs_sparc_op> for SparcOperand {
                 SparcOperand::Mem(SparcOpMem(unsafe { insn.__bindgen_anon_1.mem }))
             }
             sparc_op_type::SPARC_OP_INVALID => SparcOperand::Invalid,
+            _ => SparcOperand::Invalid,
         }
     }
 }

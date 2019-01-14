@@ -23,7 +23,7 @@ pub struct X86InsnDetail<'a>(pub(crate) &'a cs_x86);
 
 
 impl X86OperandType {
-    fn new(op_type: x86_op_type, value: cs_x86_op__bindgen_ty_1) -> X86OperandType {
+    fn new(op_type: x86_op_type::Type, value: cs_x86_op__bindgen_ty_1) -> X86OperandType {
         use self::x86_op_type::*;
         use self::X86OperandType::*;
 
@@ -33,6 +33,7 @@ impl X86OperandType {
             X86_OP_MEM => Mem(X86OpMem(unsafe { value.mem })),
             X86_OP_FP => Fp(unsafe { value.fp }),
             X86_OP_INVALID => Invalid,
+            _ => Invalid,
         }
     }
 }
@@ -230,7 +231,7 @@ mod test {
         use super::X86OperandType::*;
 
         fn t(
-            op_type_value: (x86_op_type, cs_x86_op__bindgen_ty_1),
+            op_type_value: (x86_op_type::Type, cs_x86_op__bindgen_ty_1),
             expected_op_type: X86OperandType,
         ) {
             let (op_type, op_value) = op_type_value;

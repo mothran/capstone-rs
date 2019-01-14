@@ -129,6 +129,7 @@ impl<'a> From<&'a cs_ppc_op> for PpcOperand {
                 PpcOperand::Crx(PpcOpCrx(unsafe { insn.__bindgen_anon_1.crx }))
             }
             ppc_op_type::PPC_OP_INVALID => PpcOperand::Invalid,
+            _ => PpcOperand::Invalid,
         }
     }
 }
@@ -156,7 +157,7 @@ mod test {
         use self::PpcOperand::*;
 
         fn t(
-            op: (ppc_op_type, cs_ppc_op__bindgen_ty_1),
+            op: (ppc_op_type::Type, cs_ppc_op__bindgen_ty_1),
             expected_op: PpcOperand,
         ) {
             let op = PpcOperand::from(&cs_ppc_op {

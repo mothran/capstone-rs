@@ -84,6 +84,7 @@ impl<'a> From<&'a cs_xcore_op> for XcoreOperand {
                 XcoreOperand::Mem(XcoreOpMem(unsafe { insn.__bindgen_anon_1.mem }))
             }
             xcore_op_type::XCORE_OP_INVALID => XcoreOperand::Invalid,
+            _ => XcoreOperand::Invalid,
         }
     }
 }

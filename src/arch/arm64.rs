@@ -56,7 +56,7 @@ pub enum Arm64Shift {
 }
 
 impl Arm64OperandType {
-    fn new(op_type: arm64_op_type, value: cs_arm64_op__bindgen_ty_2) -> Arm64OperandType {
+    fn new(op_type: arm64_op_type::Type, value: cs_arm64_op__bindgen_ty_2) -> Arm64OperandType {
         use self::arm64_op_type::*;
         use self::Arm64OperandType::*;
 
@@ -73,6 +73,7 @@ impl Arm64OperandType {
             ARM64_OP_SYS => Sys(unsafe { value.sys }),
             ARM64_OP_PREFETCH => Prefetch(unsafe { value.prefetch }),
             ARM64_OP_BARRIER => Barrier(unsafe { value.barrier }),
+            _ => Invalid,
         }
     }
 }
@@ -289,7 +290,7 @@ mod test {
         use capstone_sys::arm64_pstate::*;
 
         fn t(
-            op_type_value: (arm64_op_type, cs_arm64_op__bindgen_ty_2),
+            op_type_value: (arm64_op_type::Type, cs_arm64_op__bindgen_ty_2),
             expected_op_type: Arm64OperandType,
         ) {
             let (op_type, op_value) = op_type_value;
